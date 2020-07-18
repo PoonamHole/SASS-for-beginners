@@ -1,0 +1,164 @@
+/*
+difference between .sass and .scss
+in .sass file {} and ; are not allowed
+that's why .scss extention is mostly used
+
+to use scss file in the project we need to compile it in css file.
+to achieve that we need to add script in package.json file under "scripts"
+"start": "sass ./sass/index.scss ./css/style.css"
+
+execute this command in terminal to compile the file 'npm start'
+after execution we can see two files under css folder 
+1.style.css
+2.style.css.map
+
+if we made any changes in .scss file it will not reflect in css file unless we run the 'npm start' command again
+to achieve this without running command again and again we will use "watch" flag
+using this flag, it will keep watching if the file has changes or not,
+if file has changes then it will re-compile the file
+we can also watch individual files or directories with the watch flag
+to add watch flag we just have to add --watch to the start script
+"start": "sass ./sass/index.scss ./css/style.css --watch"
+*/
+
+/****************************************************************************************/
+//we don't need to add leading _ and .scss extention here,
+// bcz SASS intelligent enought to understant what we want to do
+@import "partial-file-default";
+
+// Variables
+$primary-color: white;
+$primary-font: sans-serif, "cursive";
+$primary-font-color: black;
+
+// Actual SCSS Rules
+body {
+    padding: 1em;
+    background-color: $primary-color;
+    font: $primary-font;
+    color: $primary-font-color;
+}
+
+// Nesting scss
+//> is used for select all the html tag specify on RHS
+//to select spceific child just pass the number of element to :nth-child(n)
+//Follow DRY: DON'T REPEAT YOURSELF
+.container {
+    height: 100%;
+    width: 100%;
+    nav {
+        ul {
+            list-style-type: none;
+            li {
+                &:nth-child(1) {
+                    font-size: 1em;
+                    color: salmon;
+                }
+                &:nth-child(2) {
+                    font-size: 2em;
+                    color: seagreen;
+                }
+                color: slateblue;
+                font-size: 2.5em;
+            }
+        }
+
+        a {
+            text-decoration: none;
+        }
+    }
+}
+
+//Partials
+//Partials are the little code snippets that we can use in
+// other css file it helps to keep things maintain
+//Partials are the sass files leading underscores and then name of the file i.e. _fileName.scss
+//we need to use @import directives to import the scss files
+//it has a drawback whenever we use @import it will create a HTTP request
+//import the partial file at the top of the or at the start of this file
+
+//Mixins
+//mixins are just like JS functions with different syntax
+//A mixin lets you make declaration that we can re-use through out the site
+//creating a mixin
+@mixin transform_div($height, $width, $bg) {
+    width: $width;
+    height: $height;
+    background-color: $bg;
+    -ms-transform: rotate(20deg); /* IE 9 */
+    transform: rotate(20deg);
+    margin-top: 20px;
+    padding: 10px;
+}
+//we can also add the extra css rules
+.transform-div {
+    @include transform_div(100px, 100px, yellow);
+    border: 1px solid red;
+}
+.transform-div-red {
+    @include transform_div(100px, 100px, red);
+    border: 2px solid black;
+}
+.transform-div-green {
+    @include transform_div(100px, 100px, green);
+}
+.transform-div-blue {
+    @include transform_div(100px, 100px, blue);
+    border: 2px solid lightslategrey;
+    border-radius: 25%;
+}
+//normal CSS
+// .transform-div {
+//     width: 150px;
+//     height: 80px;
+//     background-color: yellow;
+//     transform: rotate(20deg);
+// }
+
+//extend@
+//using "@extend" we can achieve inheritance in CSS as wee just like JS and other language
+//we can extend the property from one selector to another selector
+//to create extend use %extend-name
+%border-extend {
+    border: 1px solid red;
+    margin-top: 20px;
+    padding: 10px;
+    color: yellowgreen;
+}
+//now we will use %border-extend in this .border-class and .border-class1
+.border-class {
+    @extend %border-extend;
+}
+
+.border-class1 {
+    @extend %border-extend;
+    padding: 20px;
+}
+
+//Pseudo selectors
+//a pseudo class is used to define a special state of an element
+
+.anchor-element {
+    margin: 20px 0px;
+    a {
+        color: salmon;
+        text-decoration: none;
+        //& will point to the current selector that is a
+        //we don't need to add extra css rules a:hover for a tag in scss
+        //we simply use &:pseudo-class-name{css rules}
+        &:hover {
+            color: blue;
+            text-decoration: underline;
+        }
+    }
+}
+
+//operators: could help to scaling the web component
+//in CSS we have standard map operators: + - / * and %
+// * is used with only one value should have unit i.e. 20em*2
+// for division we have to use () i.e. (20em/5),
+//o.w. it will not calculate and consider it as normal css
+//+ can be used for concatination of strings,
+// in here we have to add first string in "" o.w. the computed string will not have ""
+//i.e. "hello "+world will result in "hello World"
+//but if we don't use first string "" then hello +" world" will result in hello world

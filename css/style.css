@@ -1,0 +1,131 @@
+/*
+difference between .sass and .scss
+in .sass file {} and ; are not allowed
+that's why .scss extention is mostly used
+
+to use scss file in the project we need to compile it in css file.
+to achieve that we need to add script in package.json file under "scripts"
+"start": "sass ./sass/index.scss ./css/style.css"
+
+execute this command in terminal to compile the file 'npm start'
+after execution we can see two files under css folder 
+1.style.css
+2.style.css.map
+
+if we made any changes in .scss file it will not reflect in css file unless we run the 'npm start' command again
+to achieve this without running command again and again we will use "watch" flag
+using this flag, it will keep watching if the file has changes or not,
+if file has changes then it will re-compile the file
+we can also watch individual files or directories with the watch flag
+to add watch flag we just have to add --watch to the start script
+"start": "sass ./sass/index.scss ./css/style.css --watch"
+*/
+/****************************************************************************************/
+html,
+body {
+  padding: 0%;
+  margin: 0%;
+}
+
+body {
+  padding: 1em;
+  background-color: white;
+  font: sans-serif, "cursive";
+  color: black;
+}
+
+.container {
+  height: 100%;
+  width: 100%;
+}
+.container nav ul {
+  list-style-type: none;
+}
+.container nav ul li {
+  color: slateblue;
+  font-size: 2.5em;
+}
+.container nav ul li:nth-child(1) {
+  font-size: 1em;
+  color: salmon;
+}
+.container nav ul li:nth-child(2) {
+  font-size: 2em;
+  color: seagreen;
+}
+.container nav a {
+  text-decoration: none;
+}
+
+.transform-div {
+  width: 100px;
+  height: 100px;
+  background-color: yellow;
+  -ms-transform: rotate(20deg);
+  /* IE 9 */
+  transform: rotate(20deg);
+  margin-top: 20px;
+  padding: 10px;
+  border: 1px solid red;
+}
+
+.transform-div-red {
+  width: 100px;
+  height: 100px;
+  background-color: red;
+  -ms-transform: rotate(20deg);
+  /* IE 9 */
+  transform: rotate(20deg);
+  margin-top: 20px;
+  padding: 10px;
+  border: 2px solid black;
+}
+
+.transform-div-green {
+  width: 100px;
+  height: 100px;
+  background-color: green;
+  -ms-transform: rotate(20deg);
+  /* IE 9 */
+  transform: rotate(20deg);
+  margin-top: 20px;
+  padding: 10px;
+}
+
+.transform-div-blue {
+  width: 100px;
+  height: 100px;
+  background-color: blue;
+  -ms-transform: rotate(20deg);
+  /* IE 9 */
+  transform: rotate(20deg);
+  margin-top: 20px;
+  padding: 10px;
+  border: 2px solid lightslategrey;
+  border-radius: 25%;
+}
+
+.border-class1, .border-class {
+  border: 1px solid red;
+  margin-top: 20px;
+  padding: 10px;
+  color: yellowgreen;
+}
+
+.border-class1 {
+  padding: 20px;
+}
+
+.anchor-element {
+  margin: 20px 0px;
+}
+.anchor-element a {
+  color: salmon;
+  text-decoration: none;
+}
+.anchor-element a:hover {
+  color: blue;
+  text-decoration: underline;
+}
+
+/*# sourceMappingURL=style.css.map */
